@@ -1,0 +1,71 @@
+<body class="">
+
+ <div class="container">
+   
+  <div *ngIf="afAuth.user | async as user">
+    <header>
+        <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav mb-5">
+                    <button class="btn btn-outline-danger btn-rounded btn-block waves-effect buttonLogout"
+                      (click)="logout()"> Salir</button>
+        </nav>
+    </header>
+                    <div class="main card-body text-center mx-5">
+                        <h4 class="card-title">Hola, {{ user.displayName }} </h4>
+                        <p class="card-text">Veamos cuantas peliculas puedes ver este año. ¡Hasta ahora llevas {{numeroDePeliculasVistas }}!</p>
+                    </div>
+</div>
+
+  <div class="row">
+    <div class="col-6">
+      <form #formularioPelicula="ngForm" 
+      (ngSubmit)="peliculaEnviada(titulo, director, pais, anio, imgpelicula)">
+      <div class="form-group container">
+
+      <input [(ngModel)]="imgpelicula" name="imgpelicula" type="text" class="form-control input-sm mt-2" placeholder="URL imagen">
+      <input [(ngModel)]="titulo" name="titulo" type="text" class="form-control mt-2" placeholder="Titulo">
+      <input [(ngModel)]="director" name="director" type="text" class="form-control mt-2" placeholder="Director">
+      <input [(ngModel)]="pais" name="pais" type="text" class="form-control mt-2" placeholder="Pais">
+      <input [(ngModel)]="anio" name="anio" type="text" class="form-control my-2" placeholder="Año">
+  
+      <button type="submit" class="btn btn-light" >Añadir</button>
+          
+      </div>
+     </form>  
+    </div>
+    <div class="col-6 instrucciones mt-2">
+      <span>¿Cómo hacerlo?</span>
+      <br>
+      Copia y pega desde internet la URL de la imagen de la pelicula
+      <br>
+      Llena el resto de campos
+      <br>
+      Lleva un control sobre tus peliculas vistas
+    </div>
+  </div>
+
+
+<div class="container d-flex justify-content-between mt-4">
+  <div class="card-columns text-center" >
+
+      <div class="card" style="width: 18rem;" *ngFor="let task of tasks | async">
+          <img src={{task.imgpelicula}} id="imgpelicula" name="imgpelicula"> 
+          <div class="card-body">
+            <h5 class="card-title">{{task.titulo}}</h5>
+            <p class="card-text">{{task.director}}.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{task.pais}}</li>
+            <li class="list-group-item">{{task.anio}}</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+          <button class="btn btn-light btnEdit"  (click)="deleteTask(task)">Borrar</button>
+        <!-- <button class="btn btn-success btnEdit"  (click)="edit(task)"> EDIT</button> -->
+      </div>
+
+  </div>
+</div>
+
+
+ </div>
+
+</body>
